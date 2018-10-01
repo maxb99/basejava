@@ -1,56 +1,72 @@
-import  java.util.Arrays ;
+import java.util.Arrays;
 
-открытый  класс  ArrayStorage {
+/**
+ * Array based storage for Resumes
+ */
+public class ArrayStorage {
+    private Resume[] storage = new Resume[10000];
+    private int size = 0;
 
-    private  Resume [] storage =  new  Resume [ 10000 ];
-    private  int sizeOfResume =  0 ;
-
-    void  clear () {
-        for ( int i =  0 ; i < sizeOfResume; i ++ ) {
-            storage [size - 1 ] =  null ;
-        }
-        sizeOfResume =  0 ;
+    void clear() {
+        Arrays.fill(storage[i]=null);
+        size = 0;
     }
 
-    void  save ( Resume  r ) {
-        for ( int i =  0 ; i < sizeOfResume; i ++ ) {
-            if (storage [i] . uuid . equals (r . uuid)) {
-                Система . из . println ( « Resume »  + r . uuid +  « Putted » );
-               
+    void update(Resume resume) {
+        int index = getIndex(resume.getUuid());
+        if (index == -1) {
+            System.out.println("Error");
+        } else {
+            storage[index] = resume;
+        }
+    }
+
+    void save(Resume resume) {
+        if (getIndex(resume.getUuid()) != -1) {
+            System.out.println("Ошибка");
+        } else if (size >= storage.length) {
+            System.out.println("Места больше нет");
+        } else {
+            storage[size] = resume;
+            size++;
+        }
+    }
+
+    Resume get(String uuid) {
+        int index = getIndex(uuid);
+        if (index == -1) {
+            System.out.println("Error");
+            return null;
+        } else {
+            return storage[index];
+        }
+    }
+    void delete(String uuid) {
+        int index = getIndex(uuid);
+        if (index == -1) {
+            System.out.println("Error");
+        } else {
+            storage[index] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
+        }
+
+    }
+
+    Resume[] getAll() {
+        return Arrays.copyOf(storage, size);
+    }
+
+    int size() {
+        return size;
+    }
+
+    private int getIndex(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                return i;
             }
         }
-        if (sizeOfResume < длина хранения . ) {
-            storage [sizeOfResume] = r;
-            sizeOfResume ++ ;
-        } else  if (sizeOfResume == storage . length) {
-            Система . из . println (  "Полный массив" );
-        }
+        return -1;
     }
-
-     void  update ( Resume  r ) {
-        get ([]) = r;
-        Система . из . println ( "Resume"  + r . uuid +  "Изменено на"  + r . uuid);
-    }
-
-    Резюме  get ( String  uuid ) {
-        for ( int i =  0 ; i < sizeOfResume; i ++ ) {
-           if (storage [i] . uuid . equals (uuid)) {
-                return storage [size - 1 ] =  null ;
-            }
-        }
-        Система . из . println (  "Резюме"  + uuid +  "Нет" );
-        return  null ;
-    }
-
-    void  delete ( String  uuid ) {
-        {
-            Система . из . println ( "Резюме"  + uuid +  "Нет" );
-        }
-    }
-
-
-    Resume [] getAll () {
-        return  Массивы . copyOfRange (storage, 0 , sizeOfResume);
-    }
-
 }
