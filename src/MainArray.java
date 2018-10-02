@@ -1,68 +1,77 @@
-import  java.io.BufferedReader ;
-import  java.io.IOException ;
-import  java.io.InputStreamReader ;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
+/**
+ * Test for com.urise.webapp.storage.ArrayStorage
+ */
+public class MainArray {
+    private final static ArrayStorage ARRAY_STORAGE = new ArrayStorage();
 
-    MainArray {
-    private  final  static  ArrayStorage  ARRAY_STORAGE  =    ArrayStorage ();
-
-    public  static  void  main ( String [] args ) throws  IOException {
-        BufferedReader reader =    BufferedReader (   InputStreamReader ( System . In ));
-        Резюме ;
-        while ( true ) {
-            Система . из . print ( " Введите одну из команд - (список | save uuid | удалить uuid | get uuid | clear | exit): " );
-            String [] params = читатель . readLine () . trim () . toLowerCase () . split ( "  " );
-            if (params . length <  1  || params . length >  2 ) {
-                Система . из . println ( « Неверная команда. » );
-                продолжить ;
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        Resume r;
+        while (true) {
+            System.out.print("Введите одну из команд - (list | save uuid | delete uuid | get uuid | clear | update| exit): ");
+            String[] params = reader.readLine().trim().toLowerCase().split(" ");
+            
+            if (params.length < 1 || params.length > 2) {
+                System.out.println("Неверная команда.");
+                continue;
             }
-            String uuid =  null ;
-            if (params . length ==  2 ) {
-                uuid = params [ 1 ] . стажер ();
+            String uuid = null;
+            if (params.length == 2) {
+                uuid = params[1].intern();
             }
-            switch (params [ 0 ]) {
-                case  " list " :
-                    Printall ();
-                    перерыв ;
-                case  " size " :
-                    Система . из . println ( ARRAY_STORAGE . size ());
-                    перерыв ;
-                case  " save " :
-                    r =  новое  резюме ();
-                    r . uuid = uuid;
-                    ARRAY_STORAGE . сохранить (г);
-                    Printall ();
-                    перерыв ;
-                case  " delete " :
-                    ARRAY_STORAGE . удалить (UUID);
-                    Printall ();
-                    перерыв ;
-                case  " get " :
-                    Система . из . println ( ARRAY_STORAGE . get (uuid));
-                    перерыв ;
-                case  " clear " :
-                    ARRAY_STORAGE . Чисто();
-                    Printall ();
-                    перерыв ;
-                case  " exit " :
-                    возвращение ;
-                по умолчанию :
-                    Система . из . println ( « Неверная команда. » );
-                    перерыв ;
+            switch (params[0]) {
+                case "list":
+                    printAll();
+                    break;
+                case "size":
+                    System.out.println(ARRAY_STORAGE.size());
+                    break;
+                case "save":
+                    r = new Resume();
+                    r.setUuid(uuid);
+                    ARRAY_STORAGE.save(r);
+                    printAll();
+                    break;
+                case "delete":
+                    ARRAY_STORAGE.delete(uuid);
+                    printAll();
+                    break;
+                case "get":
+                    System.out.println(ARRAY_STORAGE.get(uuid));
+                    break;
+                case "clear":
+                    ARRAY_STORAGE.clear();
+                    printAll();
+                    break;
+                case "update":
+                    r = new Resume();
+                    r.setUuid("uuid");
+                    ARRAY_STORAGE.update(r);
+                    printAll();
+                    break;
+                case "exit":
+                    return;
+                default:
+                    System.out.println("Неверная команда.");
+                    break;
             }
         }
     }
 
-    static  void  printAll () {
-        Resume [] all =  ARRAY_STORAGE . получить все();
-        Система . из . println ( " ---------------------------- " );
-        if (all . length ==  0 ) {
-            Система . из . println ( « Пусто » );
+    static void printAll() {
+        Resume[] all = ARRAY_STORAGE.getAll();
+        System.out.println("-----------------------");
+        if (all.length == 0) {
+            System.out.println("Empty");
         } else {
-            для ( Resume r : all) {
-                Система . из . Println (г);
+            for (Resume r : all) {
+                System.out.println(r);
             }
         }
-        Система . из . println ( " ---------------------------- " );
+        System.out.println("-----------------------");
     }
 }
