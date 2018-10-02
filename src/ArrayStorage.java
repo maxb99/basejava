@@ -6,11 +6,10 @@ import java.util.Arrays;
 public class ArrayStorage {
     private Resume[] storage = new Resume[10000];
     private int size = 0;
-
-    void clear() {
-        Arrays.fill(storage[i]=null);
+    
+ void clear() {
+        Arrays.fill(storage, 0, size, null);
         size = 0;
-    }
 
     void update(Resume resume) {
         int index = getIndex(resume.getUuid());
