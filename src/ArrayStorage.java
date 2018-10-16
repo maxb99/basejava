@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 /**
  * Array based storage for Resumes
- */ 
+ */
 
 public class ArrayStorage {
     private Resume[] storage = new Resume[10000];
@@ -34,6 +34,7 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
+
         int index = getIndex(uuid);
         if (index == -1) {
             System.out.println("Error");
@@ -41,9 +42,19 @@ public class ArrayStorage {
         } else {
             return storage[index];
         }
+
+        public Resume[] getStorage() {
+            return storage;
+        }
+
+        public void setStorage(Resume[] storage) {
+            this.storage = storage;
+        }
+
     }
 
-    
+
+
     void delete(String uuid) {
         int index = getIndex(uuid);
         if (index == -1) {
@@ -73,4 +84,12 @@ public class ArrayStorage {
         return -1;
     }
 
-}
+    public Resume[] getStorage() {
+        return storage;
+    }
+
+    public void setStorage(Resume[] storage) {
+        this.storage = storage;
+    }
+
+
