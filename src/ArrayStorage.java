@@ -22,14 +22,6 @@ public class ArrayStorage {
             return storage[0];
         }
 
-        public String getUuid() {
-            return uuid;
-        }
-
-        public void setUuid(String uuid) {
-            this.uuid = uuid;
-        }
-
         return null;
     }
 
@@ -61,5 +53,6 @@ public class ArrayStorage {
         return 0;
     }
 }
+
 
 
