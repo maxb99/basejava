@@ -11,48 +11,74 @@ public class ArrayStorage {
     }
 
     void save(Resume resume) {
-        if (size < storage.length) {
+        if (getIndex(resume.getUuid()) != -1) {
+            System.out.println("Такое резюме уже хранится в базе");
+        } else if (size == storage.length) {
+            System.out.println("Все места заняты");
+        } else {
             storage[size] = resume;
             size++;
         }
     }
 
-    Resume get(String uuid) {
-        if (storage[0].uuid == uuid) {
-            return storage[0];
+    void update(Resume r) {
+        int i = getIndex(r.getUuid());
+        if (i == -1) {
+            System.out.println("Такого резюме не существует.");
+        } else {
+            storage[i] = r;
         }
-
-        return null;
     }
+
+
+    Resume get(String uuid) {
+        int i = getIndex(uuid);
+        if (i == -1) {
+            System.out.println("Такого резюме не существует.");
+            return null;
+        } else {
+            return storage[i];
+        }
+    }
+
 
     void delete(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(uuid)) {
-                storage[i] = storage[size - 1];
-                storage[size - 1] = null;
-                size--;
-                return;
-
-            }
+        int i = getIndex(uuid);
+        if (i == -1) {
+            System.out.println("Такого резюме не существует.");
+        } else {
+            storage[i] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
         }
 
+
+        /**
+         * @return array, contains only Resumes in storage (without null)
+         */
+
+        Resume[] getAll () {
+
+
+            return Arrays.copyOf(storage, size);
+        }
+
+
+        int size() {
+            return size;
+        }
+        private int getIndex (String uuid){
+            for (int i = 0; i < size; i++) {
+                if (storage[i].getUuid().equals(uuid)) {
+                    return i;
+                }
+            }
+            return -1;
+        }
     }
 
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
-
-    Resume[] getAll() {
-
-
-        return Arrays.copyOf(storage, size);
-    }
-
-
-    int size() {
-        return 0;
-    }
 }
+
 
 
 
