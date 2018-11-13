@@ -3,18 +3,14 @@
  */
 public class Resume {
 
-
+    private String uuid;
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
-
     public String getUuid() {
         return uuid;
     }
-
-    private String uuid;
-
-    @Override
+   @Override
     public String toString() {
         return uuid;
     }
